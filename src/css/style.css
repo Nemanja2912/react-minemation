@@ -3,6 +3,19 @@
   margin: 0;
 }
 
+.fadeInUp > .measure-line > p {
+  animation-name: fadeInUp;
+}
+.fadeInDown > .measure-line > p {
+  animation-name: fadeInDown;
+}
+.fadeInLeft > .measure-line > p {
+  animation-name: fadeInLeft;
+}
+.fadeInRight > .measure-line > p {
+  animation-name: fadeInRight;
+}
+
 @keyframes fadeInUp {
   0% {
     transform: translateY(100%);

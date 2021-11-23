@@ -8,9 +8,13 @@ const MinemationText = ({
   duration = 500,
   fitWidth = false,
   overflowHidden = false,
-  onScroll,
+  onScroll = false,
+  windowHeight = 0,
+  onScrollRepeat = false,
 }) => {
   const [renderList, setRenderList] = useState([]);
+  const [startAnimation, setStartAnimation] = useState(!onScroll);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const containerRef = useRef();
 
   let transform;
@@ -37,7 +41,6 @@ const MinemationText = ({
   };
 
   const textStyle = {
-    animationName: animationName,
     animationDuration: `${duration}ms`,
     width: fitWidth ? "max-content" : "100%",
     opacity: 0,
@@ -101,14 +104,36 @@ const MinemationText = ({
   };
 
   useEffect(() => {
+    if (onScroll) {
+      window.addEventListener("scroll", () => {
+        if (
+          window.scrollY + screenHeight * (windowHeight / 100) >
+          containerRef.current.offsetTop
+        ) {
+          setStartAnimation(true);
+        }
+
+        if (onScrollRepeat) {
+          if (containerRef.current.getBoundingClientRect().top > screenHeight) {
+            setStartAnimation(false);
+          }
+        }
+      });
+    }
+
     window.addEventListener("resize", () => {
       setRenderList(separateTextToLine(containerRef.current, text));
+      setScreenHeight(window.innerHeight);
     });
 
     setRenderList(separateTextToLine(containerRef.current, text));
   }, []);
 
-  return <div ref={containerRef}>{renderList}</div>;
+  return (
+    <div ref={containerRef} className={`${startAnimation && animationName}`}>
+      {renderList}
+    </div>
+  );
 };
 
 export default MinemationText;
