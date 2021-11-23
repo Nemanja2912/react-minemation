@@ -1,11 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 import "../css/style.css";
 
-const MeasureText = ({
+const MinemationText = ({
   text,
   animationName = "",
   delay = 0,
   duration = 500,
+  fitWidth = false,
+  overflowHidden = false,
+  onScroll,
 }) => {
   const [renderList, setRenderList] = useState([]);
   const containerRef = useRef();
@@ -13,16 +16,16 @@ const MeasureText = ({
   let transform;
 
   switch (animationName) {
-    case "fromBottom":
+    case "fadeInUp":
       transform = "translateY(100%)";
       break;
-    case "fromTop":
+    case "fadeInDown":
       transform = "translateY(-100%)";
       break;
-    case "fromLeft":
+    case "fadeInLeft":
       transform = "translateX(-100%)";
       break;
-    case "fromRight":
+    case "fadeInRight":
       transform = "translateX(100%)";
       break;
     default:
@@ -30,16 +33,18 @@ const MeasureText = ({
   }
 
   const lineStyle = {
-    overflow: "hidden",
+    overflow: overflowHidden ? "hidden" : "visible",
   };
 
   const textStyle = {
     animationName: animationName,
     animationDuration: `${duration}ms`,
+    width: fitWidth ? "max-content" : "100%",
+    opacity: 0,
+    transform: transform,
+
     animationTimingFunction: "linear",
     animationFillMode: "forwards",
-    transform: transform,
-    width: "max-content",
   };
 
   const separateTextToLine = (element, text) => {
@@ -59,9 +64,6 @@ const MeasureText = ({
     };
 
     let textWidth = getTextWidth(text);
-
-    console.log(textWidth);
-    console.log(elementWidth);
 
     const word = text.split("");
     let index = 0;
@@ -102,10 +104,11 @@ const MeasureText = ({
     window.addEventListener("resize", () => {
       setRenderList(separateTextToLine(containerRef.current, text));
     });
+
     setRenderList(separateTextToLine(containerRef.current, text));
   }, []);
 
   return <div ref={containerRef}>{renderList}</div>;
 };
 
-export default MeasureText;
+export default MinemationText;
