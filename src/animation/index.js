@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import "../css/style.css";
 
+import scroll from "./scrollFunc";
+
 const MinemationText = ({
   text,
   animationName = "",
@@ -8,14 +10,14 @@ const MinemationText = ({
   duration = 500,
   fitWidth = false,
   overflowHidden = false,
-  onScroll = false,
   windowHeight = 0,
+  onScroll = false,
   onScrollRepeat = false,
 }) => {
   const [renderList, setRenderList] = useState([]);
   const [startAnimation, setStartAnimation] = useState(!onScroll);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-  const containerRef = useRef();
+  const containerRef = useRef(null);
 
   let transform;
 
@@ -104,29 +106,38 @@ const MinemationText = ({
   };
 
   useEffect(() => {
-    if (onScroll) {
-      window.addEventListener("scroll", () => {
-        if (
-          window.scrollY + screenHeight * (windowHeight / 100) >
-          containerRef.current.offsetTop
-        ) {
-          setStartAnimation(true);
-        }
-
-        if (onScrollRepeat) {
-          if (containerRef.current.getBoundingClientRect().top > screenHeight) {
-            setStartAnimation(false);
-          }
-        }
-      });
-    }
-
-    window.addEventListener("resize", () => {
+    const resize = () => {
       setRenderList(separateTextToLine(containerRef.current, text));
       setScreenHeight(window.innerHeight);
-    });
+    };
+
+    window.addEventListener("resize", resize);
 
     setRenderList(separateTextToLine(containerRef.current, text));
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const activateScroll = () => {
+      scroll(
+        screenHeight,
+        windowHeight,
+        containerRef,
+        setStartAnimation,
+        onScrollRepeat
+      );
+    };
+
+    if (onScroll) {
+      window.addEventListener("scroll", activateScroll);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", activateScroll);
+    };
   }, []);
 
   return (
@@ -137,3 +148,121 @@ const MinemationText = ({
 };
 
 export default MinemationText;
+
+const MinemationNumber = ({
+  num,
+  random = false,
+  counter = false,
+  interval = 0,
+  duration = 0,
+  iteration = 1,
+  startNum = 0,
+  windowHeight = 0,
+  onScroll = false,
+  onScrollRepeat = false,
+}) => {
+  let renderNum = counter ? startNum : num.toString().split("");
+  const [digitList, setDigitList] = useState(renderNum);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+  const [startAnimation, setStartAnimation] = useState(!onScroll);
+
+  const containerRef = useRef(null);
+
+  const startCounter = () => {
+    if (counter) {
+      if (renderNum === num) return;
+
+      if (renderNum < num) {
+        let counterInterval = setInterval(() => {
+          if (renderNum + 1 === num) clearInterval(counterInterval);
+
+          renderNum++;
+          setDigitList(renderNum);
+        }, interval);
+      } else {
+        let counterInterval = setInterval(() => {
+          if (renderNum - 1 === num) clearInterval(counterInterval);
+
+          renderNum--;
+          setDigitList(renderNum);
+        }, interval);
+      }
+    } else {
+      let counter = 0;
+
+      let digitInterval = setInterval(() => {
+        let randomDigit = [...digitList];
+        if (random) {
+          for (let index in digitList) {
+            randomDigit[index] = (Math.random() * 9).toFixed();
+          }
+          setDigitList(randomDigit);
+
+          setTimeout(() => {
+            clearInterval(digitInterval);
+            setDigitList(num.toString().split(""));
+          }, duration);
+        } else {
+          setDigitList((prev) => {
+            let arr = prev.map((element) => {
+              if (Number(element) === 9) return 0;
+              return Number(element) + 1;
+            });
+
+            if (Number(arr.join("")) === num) {
+              if (counter === iteration) clearInterval(digitInterval);
+
+              counter++;
+            }
+
+            return arr;
+          });
+        }
+      }, interval);
+    }
+  };
+
+  useEffect(() => {
+    if (!onScroll) startCounter();
+  }, []);
+
+  useEffect(() => {
+    if (startAnimation) startCounter();
+  }, [startAnimation]);
+
+  useEffect(() => {
+    const activateScroll = () => {
+      scroll(
+        screenHeight,
+        windowHeight,
+        containerRef,
+        setStartAnimation,
+        onScrollRepeat
+      );
+    };
+
+    if (onScroll) {
+      window.addEventListener("scroll", activateScroll);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", activateScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const resize = () => {
+      setScreenHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", resize);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return <div ref={containerRef}>{digitList}</div>;
+};
+
+export { MinemationNumber };
