@@ -1,4 +1,4 @@
-const scroll = (
+const onScroll = (
   screenHeight,
   windowHeight,
   containerRef,
@@ -19,4 +19,4 @@ const scroll = (
   }
 };
 
-export default scroll;
+export default onScroll;

@@ -20,9 +20,9 @@ function App() {
           animationName="fadeInLeft"
           delay={0}
           duration={500}
-          onScroll={true}
+          scroll={true}
           windowHeight={50}
-          onScrollRepeat={false}
+          scrollRepeat={false}
         />
       </div>
 

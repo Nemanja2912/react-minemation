@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import "../css/style.css";
 
-import scroll from "./scrollFunc";
+import onScroll from "./scrollFunc";
 
 const MinemationText = ({
   text,
@@ -122,7 +122,7 @@ const MinemationText = ({
 
   useEffect(() => {
     const activateScroll = () => {
-      scroll(
+      onScroll(
         screenHeight,
         windowHeight,
         containerRef,
@@ -238,7 +238,7 @@ const MinemationNumber = ({
 
   useEffect(() => {
     const activateScroll = () => {
-      scroll(
+      onScroll(
         screenHeight,
         windowHeight,
         containerRef,
