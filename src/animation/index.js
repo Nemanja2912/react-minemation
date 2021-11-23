@@ -11,11 +11,11 @@ const MinemationText = ({
   fitWidth = false,
   overflowHidden = false,
   windowHeight = 0,
-  onScroll = false,
-  onScrollRepeat = false,
+  scroll = false,
+  scrollRepeat = false,
 }) => {
   const [renderList, setRenderList] = useState([]);
-  const [startAnimation, setStartAnimation] = useState(!onScroll);
+  const [startAnimation, setStartAnimation] = useState(!scroll);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const containerRef = useRef(null);
 
@@ -127,11 +127,11 @@ const MinemationText = ({
         windowHeight,
         containerRef,
         setStartAnimation,
-        onScrollRepeat
+        scrollRepeat
       );
     };
 
-    if (onScroll) {
+    if (scroll) {
       window.addEventListener("scroll", activateScroll);
     }
 
@@ -158,17 +158,18 @@ const MinemationNumber = ({
   iteration = 1,
   startNum = 0,
   windowHeight = 0,
-  onScroll = false,
-  onScrollRepeat = false,
+  scroll = false,
+  scrollRepeat = false,
 }) => {
   let renderNum = counter ? startNum : num.toString().split("");
   const [digitList, setDigitList] = useState(renderNum);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-  const [startAnimation, setStartAnimation] = useState(!onScroll);
+  const [startAnimation, setStartAnimation] = useState(!scroll);
 
   const containerRef = useRef(null);
 
   const startCounter = () => {
+    // Counter
     if (counter) {
       if (renderNum === num) return;
 
@@ -187,11 +188,14 @@ const MinemationNumber = ({
           setDigitList(renderNum);
         }, interval);
       }
-    } else {
+    }
+    // Not a Counter
+    else {
       let counter = 0;
 
       let digitInterval = setInterval(() => {
         let randomDigit = [...digitList];
+        // Random Counter
         if (random) {
           for (let index in digitList) {
             randomDigit[index] = (Math.random() * 9).toFixed();
@@ -202,7 +206,9 @@ const MinemationNumber = ({
             clearInterval(digitInterval);
             setDigitList(num.toString().split(""));
           }, duration);
-        } else {
+        }
+        // Increase Digit Counter
+        else {
           setDigitList((prev) => {
             let arr = prev.map((element) => {
               if (Number(element) === 9) return 0;
@@ -223,7 +229,7 @@ const MinemationNumber = ({
   };
 
   useEffect(() => {
-    if (!onScroll) startCounter();
+    if (!scroll) startCounter();
   }, []);
 
   useEffect(() => {
@@ -237,11 +243,11 @@ const MinemationNumber = ({
         windowHeight,
         containerRef,
         setStartAnimation,
-        onScrollRepeat
+        scrollRepeat
       );
     };
 
-    if (onScroll) {
+    if (scroll) {
       window.addEventListener("scroll", activateScroll);
     }
 

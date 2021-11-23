@@ -29,13 +29,33 @@ function App() {
       <div className="cont" style={{ fontSize: 50, height: 1000 }}>
         <MinemationNumber
           num={300}
+          // interval={0}
+          duration={5000}
+          iteration={100}
+          // onScroll={true}
+          // windowHeight={30}
+          // onScrollRepeat={true}
+        />
+        {/* <MinemationNumber
+          num={300}
           interval={0}
           duration={5000}
+          random
           iteration={100}
           onScroll={true}
           windowHeight={30}
           onScrollRepeat={true}
-        />
+        /> */}
+        {/* <MinemationNumber
+          num={300}
+          interval={0}
+          duration={5000}
+          counter
+          iteration={100}
+          onScroll={true}
+          windowHeight={30}
+          onScrollRepeat={true}
+        /> */}
       </div>
     </div>
   );
