@@ -42,18 +42,15 @@ With Animation
 
 Prop list:
 
-```
-text - Add random text
-animationName - Check one animation from the list
-delay - Every line start after another line (in ms)
-duration - How long every animation will last (in ms)
-fitWidth - Does the width of every line will be 100% of the parent container or as possible (true/false)
-overflowHidden - Does animation will start from their line position or around the screen (true/false)
-scroll - Does animation will start on scroll (true/false) / Default is to start when the top position enter the screen
-windowHeight - *require scroll to be true* Animation will start when the top position of container will in that area of the screen (in view height 0-100 )
-scrollRepeat - *require scroll to be true* When you scroll from bottom to start of website and container top position be under-screen bottom it will restart animation, so when you scroll down it will start again
-
-```
+- **text** - Add random text
+- **animationName** - Check one animation from the list
+- **delay** - Every line start after another line (in ms)
+- **duration** - How long every animation will last (in ms)
+- **fitWidth** - Does the width of every line will be 100% of the parent container or as possible (true/false)
+- **overflowHidden** - Does animation will start from their line position or around the screen (true/false)
+- **scroll** - Does animation will start on scroll (true/false) / Default is to start when the top position enter the screen
+- **windowHeight** - _require scroll to be true_ Animation will start when the top position of container will in that area of the screen (in view height 0-100 )
+- **scrollRepeat** - _require scroll to be true_ When you scroll from bottom to start of website and container top position be under-screen bottom it will restart animation, so when you scroll down it will start again
 
 ## Usage MinemationNumber
 
@@ -67,18 +64,16 @@ Simple counter:
 
 Prop list:
 
-```
-num - Add random number
-random - Use the random type of counter (Default is digited increase counter) (true/false
-counter - Use counter type of counter (Default is digited increase counter) *it will overwrite random props* (true/false)
-interval -  It will set how long will take after each increase/decrease number (in ms)
-duration - *require random to be true* How long numbers will randomly set (in ms)
-iteration - *require random and counter to be false (default options)* How many times every digit will increase  (in ms)
-startNum - *require a counter to be true* Set what is starting number for counter (if it is higher than num it will be decreased)
-scroll - Does animation will start on scroll (true/false) / Default is to start when the top position enter the screen
-windowHeight - *require scroll to be true* Animation will start when the top position of the container will in that area of the screen (in view height 0-100 )
-scrollRepeat - *require to scroll to be true* When you scroll from bottom to start of website and container top position be under-screen bottom it will restart animation, so when you scroll down it will start again
-```
+- **num** - Add random number
+- **random** - Use the random type of counter (Default is digited increase counter) (true/false
+- **counter** - Use counter type of counter (Default is digited increase counter) _it will overwrite random props_ (true/false)
+- **interval** - It will set how long will take after each increase/decrease number (in ms)
+- **duration** - _require random to be true_ How long numbers will randomly set (in ms)
+- **iteration** - _require random and counter to be false (default options)_ How many times every digit will increase (in ms)
+- **startNum** - _require a counter to be true_ Set what is starting number for counter (if it is higher than num it will be decreased)
+- **scroll** - Does animation will start on scroll (true/false) / Default is to start when the top position enter the screen
+- **windowHeight** - _require scroll to be true_ Animation will start when the top position of the container will in that area of the screen (in view height 0-100 )
+- **scrollRepeat** - _require to scroll to be true_ When you scroll from bottom to start of website and container top position be under-screen bottom it will restart animation, so when you scroll down it will start again
 
 ## Tips
 
