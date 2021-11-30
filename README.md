@@ -70,7 +70,7 @@ Shareable prop list:
 - **windowHeight** -Animation will start when the top position of the container will in that area of the screen (in view height 0-100 ) / _ *require scroll to be true* _
 - **scrollRepeat** - When you scroll from bottom to start of website and container top position be under-screen bottom it will restart animation, so when you scroll down it will start again / _*require to scroll to be true*_
 
-Simple counter:
+### Simple counter:
 
 ```
 <Counter num={300} duration={5000} iteration={100}/>
@@ -80,7 +80,7 @@ Prop list:
 
 - **startNum** -Set what is starting number for counter (if it is higher than num it will be decreased)
 
-Random counter:
+### Random counter:
 
 ```
 <RandomCounter num={500} interval={50} duration={5000} />
@@ -90,7 +90,7 @@ Prop list:
 
 - **interval** - It will set how long will take after each increase/decrease number (in ms)
 
-Digit counter (fadeIn):
+### Digit counter (fadeIn):
 
 ```
 <DigitCounter num={400} duration={2500} delay={200} loop={1} />
