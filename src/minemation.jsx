@@ -1,3 +1,8 @@
 import MinemationText from "./textAnimation/minemationText";
+import {
+  RandomCounter,
+  DigitCounter,
+  Counter,
+} from "./counterAnimation/minemationNumber";
 
-export { MinemationText };
+export { MinemationText, RandomCounter, DigitCounter, Counter };
